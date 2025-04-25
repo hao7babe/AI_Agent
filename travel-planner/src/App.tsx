@@ -8,13 +8,13 @@ import './styles/global.css';
 
 const App: React.FC = () => {
   return (
-    <div className="app-container">
+    <article className="app-container">
       <Navigation />
       <main className="main-content">
         <AppRoutes />
       </main>
       <ScrollToTop />
-    </div>
+    </article>
   );
 };
 

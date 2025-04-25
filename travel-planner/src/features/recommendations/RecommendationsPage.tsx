@@ -115,7 +115,7 @@ const RecommendationsPage: React.FC = () => {
         
         <div className="recommendations-grid" ref={gridRef} onScroll={handleScroll}>
           {destinations.map((destination) => (
-            <div
+            <article
               key={destination.id}
               className="destination-card"
               onClick={() => handleDestinationClick(destination.id)}
@@ -125,53 +125,53 @@ const RecommendationsPage: React.FC = () => {
                 alt={destination.title}
                 className="destination-image"
               />
-              <div className="destination-content">
+              <section className="destination-content">
                 <h2 className="destination-title">{destination.title}</h2>
                 <p className="destination-description">{destination.description}</p>
                 
-                <div className="destination-tags">
+                <nav className="destination-tags">
                   {destination.tags.map((tag, index) => (
                     <span key={index} className="tag" data-type={tag.type}>
                       {tag.text}
                     </span>
                   ))}
-                </div>
+                </nav>
                 
-                <div className="destination-meta">
-                  <div className="destination-rating">
+                <footer className="destination-meta">
+                  <section className="destination-rating">
                     <i className="fas fa-star"></i>
                     <span>{destination.rating}</span>
-                  </div>
-                  <div className="destination-duration">
+                  </section>
+                  <section className="destination-duration">
                     {destination.duration}
-                  </div>
-                </div>
-              </div>
-            </div>
+                  </section>
+                </footer>
+              </section>
+            </article>
           ))}
           
-          <div
+          <article
             className="destination-card create-plan-card"
             onClick={handleCreatePlanClick}
           >
-            <div className="create-plan-content">
-              <div className="create-plan-icon">
+            <section className="create-plan-content">
+              <figure className="create-plan-icon">
                 <i className="fas fa-plus"></i>
-              </div>
+              </figure>
               <h2 className="destination-title">Create Your Own Plan</h2>
               <p className="destination-description">
                 Design a personalized travel itinerary tailored to your preferences and interests.
               </p>
-              <div className="destination-tags">
+              <nav className="destination-tags">
                 <span className="tag" data-type="custom">
                   Custom
                 </span>
                 <span className="tag" data-type="personalized">
                   Personalized
                 </span>
-              </div>
-            </div>
-          </div>
+              </nav>
+            </section>
+          </article>
         </div>
 
         <button 

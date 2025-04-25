@@ -158,12 +158,12 @@ const InputForm: React.FC = () => {
             </div>
           </div>
 
-          <div className="form-group">
-            <div className="interests-header">
+          <section className="form-group">
+            <header className="interests-header">
               <label>Interests</label>
               <span className="multi-select-hint">Select multiple interests</span>
-            </div>
-            <div className="interests-grid">
+            </header>
+            <nav className="interests-grid">
               {interestOptions.map(({ id, icon: Icon, label }) => {
                 const IconComponent = Icon as React.ComponentType<{ size?: number; className?: string }>;
                 return (
@@ -178,8 +178,8 @@ const InputForm: React.FC = () => {
                   </button>
                 );
               })}
-            </div>
-          </div>
+            </nav>
+          </section>
 
           <button 
             type="submit" 
@@ -192,8 +192,8 @@ const InputForm: React.FC = () => {
       </div>
 
       {showLongTripDialog && (
-        <div className="dialog-overlay">
-          <div className="dialog-content">
+        <dialog className="dialog-overlay" open>
+          <section className="dialog-content">
             <h3>Long Trip Warning</h3>
             <p>Your trip duration is more than 10 days. We recommend either:</p>
             <ul>
@@ -201,7 +201,7 @@ const InputForm: React.FC = () => {
               <li>Creating multiple shorter trips instead</li>
             </ul>
             <p>Would you like to continue with this long trip?</p>
-            <div className="dialog-buttons">
+            <footer className="dialog-buttons">
               <button 
                 className="secondary-button"
                 onClick={() => setShowLongTripDialog(false)}
@@ -214,9 +214,9 @@ const InputForm: React.FC = () => {
               >
                 Continue Anyway
               </button>
-            </div>
-          </div>
-        </div>
+            </footer>
+          </section>
+        </dialog>
       )}
     </div>
   );

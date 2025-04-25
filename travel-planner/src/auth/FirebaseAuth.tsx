@@ -61,15 +61,15 @@ export default function FirebaseAuth() {
   };
 
   return (
-    <div className="auth-container">
-      <div className="auth-box">
+    <main className="auth-container">
+      <section className="auth-box">
         <h2>{isLogin ? 'Login' : 'Sign Up'}</h2>
         
-        {error && <div className="error-message">{error}</div>}
+        {error && <aside className="error-message">{error}</aside>}
         
         <form onSubmit={handleEmailAuth} className="auth-form">
           {!isLogin && (
-            <div className="form-group">
+            <section className="form-group">
               <input
                 type="text"
                 placeholder="Display Name"
@@ -77,9 +77,9 @@ export default function FirebaseAuth() {
                 onChange={(e) => setDisplayName(e.target.value)}
                 required={!isLogin}
               />
-            </div>
+            </section>
           )}
-          <div className="form-group">
+          <section className="form-group">
             <input
               type="email"
               placeholder="Email"
@@ -87,8 +87,8 @@ export default function FirebaseAuth() {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-          </div>
-          <div className="form-group">
+          </section>
+          <section className="form-group">
             <input
               type="password"
               placeholder="Password"
@@ -96,24 +96,22 @@ export default function FirebaseAuth() {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-          </div>
+          </section>
           <button type="submit" className="auth-button">
             {isLogin ? 'Login' : 'Sign Up'}
           </button>
         </form>
 
-        <div className="divider">
-          <span>OR</span>
-        </div>
+        <hr className="divider" />
 
-        <div className="social-login">
+        <nav className="social-login">
           <button onClick={handleGoogleLogin} className="social-button google">
             <GoogleIcon />
             Continue with Google
           </button>
-        </div>
+        </nav>
 
-        <div className="auth-switch">
+        <footer>
           <span>
             {isLogin ? "Don't have an account?" : "Already have an account?"}
           </span>
@@ -124,8 +122,8 @@ export default function FirebaseAuth() {
           >
             {isLogin ? 'Sign Up' : 'Login'}
           </button>
-        </div>
-      </div>
-    </div>
+        </footer>
+      </section>
+    </main>
   );
 }

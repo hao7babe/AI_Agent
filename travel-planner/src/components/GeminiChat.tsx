@@ -43,11 +43,11 @@ export const GeminiChat: React.FC = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-4">
-      <div className="bg-white rounded-lg shadow-lg p-4 mb-4">
-        <div className="space-y-4 mb-4 h-[400px] overflow-y-auto">
+    <main className="max-w-2xl mx-auto p-4">
+      <section className="bg-white rounded-lg shadow-lg p-4 mb-4">
+        <article className="space-y-4 mb-4 h-[400px] overflow-y-auto">
           {messages.map((message, index) => (
-            <div
+            <section
               key={index}
               className={`p-3 rounded-lg ${
                 message.role === 'user'
@@ -58,19 +58,19 @@ export const GeminiChat: React.FC = () => {
               }`}
             >
               {message.content}
-            </div>
+            </section>
           ))}
           {isLoading && (
-            <div className="bg-gray-100 p-3 rounded-lg max-w-[80%] mr-auto">
+            <section className="bg-gray-100 p-3 rounded-lg max-w-[80%] mr-auto">
               Thinking...
-            </div>
+            </section>
           )}
           {error && (
-            <div className="bg-red-100 p-3 rounded-lg max-w-[80%] mr-auto text-red-700">
+            <aside className="bg-red-100 p-3 rounded-lg max-w-[80%] mr-auto text-red-700">
               {error}
-            </div>
+            </aside>
           )}
-        </div>
+        </article>
         <form onSubmit={handleSubmit} className="flex gap-2">
           <input
             type="text"
@@ -88,7 +88,7 @@ export const GeminiChat: React.FC = () => {
             Send
           </button>
         </form>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }; 
