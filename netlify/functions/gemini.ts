@@ -47,6 +47,21 @@ export const handler: Handler = async (event) => {
       };
     }
 
+    // Check if API key is available
+    if (!process.env.GEMINI_API_KEY) {
+      return {
+        statusCode: 500,
+        headers: {
+          ...corsHeaders,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 
+          error: 'Gemini API key is not configured',
+          details: 'Please set the GEMINI_API_KEY environment variable'
+        }),
+      };
+    }
+
     // Get the Gemini model
     const model = genAI.getGenerativeModel({ 
       model: 'gemini-pro',
