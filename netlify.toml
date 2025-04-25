@@ -1,8 +1,18 @@
 [build]
-  command   = "cd travel-planner && npm install && npm run build"
-  publish   = "travel-planner/build"
+  command = "cd travel-planner && npm ci && npm run build"
+  publish = "travel-planner/build"
   functions = "netlify/functions"
 
+[build.environment]
+  NODE_VERSION = "18"
+  NPM_VERSION = "9"
+
 [dev]
-  command   = "cd travel-planner && npm start"
+  command = "cd travel-planner && npm start"
   functions = "netlify/functions"
+  targetPort = 3000
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
