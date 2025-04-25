@@ -1,6 +1,7 @@
 import { FormInput } from '../../models/FormInput';
 import { TravelPlan } from '../../models/TravelPlan';
 import { PlanSource } from '../../models/Enums';
+import { generateContent } from '../geminiService';
 
 // Mock data generator for local testing
 export async function generateTravelPlan(input: FormInput): Promise<TravelPlan> {
@@ -90,4 +91,51 @@ function shuffleArray(array: any[]) {
     [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
   }
   return newArray;
+}
+
+export async function generateTravelPlanFromGemini(input: FormInput): Promise<TravelPlan> {
+  // 1) Build the prompt as an array of lines to avoid any truncation
+  const promptLines = [
+    'You are a professional travel assistant.',
+    'Given the following trip details, produce a day-by-day itinerary in valid JSON only.',
+    '',
+    'Requirements:',
+    '- Top-level object with a single key "days" (an array).',
+    '- Each element in "days" must include:',
+    '  • "date": in YYYY-MM-DD format',
+    '  • "activities": an array of 2–5 brief activity descriptions.',
+    '- NO extra commentary, markdown or keys—output must parse as JSON.',
+    '',
+    'Trip Details:',
+    `- Origin city: ${input.originCity}`,
+    `- Destination city: ${input.destinationCity}`,
+    `- Dates: ${input.startDate} to ${input.endDate}`,
+    `- Interests: ${input.interests.join(', ')}`,
+    '',
+    'Respond with the JSON object and nothing else.',
+  ];
+
+  // 2) Join into a single string
+  const prompt = promptLines.join('\n');
+
+  // 3) (For debugging) log the complete prompt so you can inspect it in the browser console
+  console.log('Full prompt to Gemini:\n', prompt);
+
+  // 4) Call the Netlify function → Gemini
+  const raw = await generateContent(prompt, 1200);
+
+  // 5) Parse Gemini's JSON response
+  const parsed = JSON.parse(raw);
+
+  // 6) Map into your TravelPlan model
+  return {
+    id: `gen-${Date.now()}`,
+    source: 'generated',
+    createdAt: new Date().toISOString(),
+    isEditable: false,
+    days: parsed.days.map((d: any) => ({
+      date: d.date,
+      activities: d.activities,
+    })),
+  };
 } 

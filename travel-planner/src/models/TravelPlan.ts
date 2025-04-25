@@ -9,5 +9,9 @@ export interface TravelPlan {
   plan: DailyItinerary[];
   createdAt: string;
   isEditable: boolean;
-  source: PlanSource;
+  source: 'generated' | 'manual';
+  days: {
+    date: string;
+    activities: string[];
+  }[];
 }

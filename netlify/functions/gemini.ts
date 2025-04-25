@@ -52,6 +52,9 @@ export const handler: Handler = async (event) => {
       model: 'gemini-pro',
       generationConfig: {
         maxOutputTokens: maxTokens,
+        temperature: 0.7,
+        topP: 0.8,
+        topK: 40
       }
     });
 
@@ -59,6 +62,23 @@ export const handler: Handler = async (event) => {
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
+
+    // Validate that the response is valid JSON
+    try {
+      JSON.parse(text);
+    } catch (e) {
+      return {
+        statusCode: 500,
+        headers: {
+          ...corsHeaders,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 
+          error: 'Invalid JSON response from Gemini',
+          details: 'The response was not valid JSON'
+        }),
+      };
+    }
 
     return {
       statusCode: 200,
